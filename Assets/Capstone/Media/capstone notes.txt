@@ -1,0 +1,229 @@
+KITTEN ISLAND
+
+//  kittens
+Island with kittens. 
+Kittens have AI, pace independently. Shouldn't be difficult.
+Ideally kittens should be interactable.
+Kitten sounds.
+Other AIs? Other animals maybe? .. -> {Seagulls? Use old Island?}
+
+//  need an ocean and an island obviously
+How to generate ocean?
+... use old Island project ocean? -> Works masterfully. Will adjust ocean sound pitch and such later.
+
+//  immersion
+Grabbable objects for immersion. Big leaves? Float when thrown? Wind? ... Wind was too hard.
+Supplementary objects (trees, boat(?)).
+Sand effects for immersion.
+-> Can't figure out a simple way to do it. Scrapped for now.
+Skipping Wind with leaves, for now at least.
+
+//  controls
+Controls without explanation?
+Movement system = ? Responsive Rails system?
+-> Teleport seems more natural. Easier to implement too.
+
+//  secrets
+Secrets. Cave? Hidden item(s) from previous stranded people?
+
+
+
+CHALLENGE REQUIREMENTS
+
+//  Fundamentals
+Scale = human player vs cats. Easy. Doable.
+Locomotion = simple movement. Easy.
+Physics = gravity, collision, etc. Easy.
+(Baked + Real) Lighting.
+Play video? (x2 with Lighting) = out of place on island?
+
+empathy = no.
+
+
+
+//  Completeness
+AI = cats. Easy.
+Reward system.  Secrets? Achievements?
+Use UI to explain things. Tricky but would be way better than cluttering text. Have to learn.
+
+Make a custom 3D Model = Maybe?
+Alternative storyline = Doesn't make sense for project?
+
+Photogrammetry = nope.
+
+
+
+//  Challenges
+
+Compute Shader = No idea what this is. Investigate later.
+(decided it's too difficult)
+User Testing Examples (with 3x in Completeness) = Troublesome but possible.
+Speech recognition = How would it work? Call kittens over? What else could it be used for?
+
+Multiplayer = Wouldn't really work with this idea? .. Can't figure out a way it would work.
+x downloads in App Store = Approval may take forever. Complicated. Tedious. Try something else.
+Record in Mixed Reality = Seems too tedious.
+
+
+
+//  Misc 
+
+Game name?	-> "Kitten Island"
+
+Start Screen? Necessary?	-> Decided it wasn't necessary. May change later.
+
+Extra mechanics/immersion. Lights in cave? Props? Treasure chest? -> All doable.
+
+Special mechanics with kittens? Purr animation? Feed kittens? -> Purr too difficult.
+
+Add seagull AI from island scene. Necessary? -> It's easy enough. Sure, why not.
+
+How to make sand more 'sandy'? Better material? Particle effects? Too costly resource-wise?
+-> Very difficult apparently. Check for future 'sandier' mats for island.
+
+Some UI for achievements. -> No real choice on this one. Not hard at all.
+
+Sounds -- purr, achievement unlock, ocean waves, kittens walking, footsteps, leaves rustling (wind), 
+
+Achievements / Secrets -- Locked -> silhouette of unlocked/locked icons? -> Doable, easy.
+
+Fix Player Settings and such for release.
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+Bottle/cork and double collision?
+-> Seemingly handled in a tricky manner, if bottle is being held.
+
+Some leaves should purposely not be throwable?
+-> Easy but we'll see if it makes things seem more natural or not.
+
+Leaves should have drag and sway to act like, well, leaves.
+-> Ended up being way too difficult/expensive to add sway. Settled with just giving them lots of drag. They're kinda leafy at least.
+
+All leaves being mostly of the same size and/or color might be too odd.
+-> We'll see this is just an opinion or if it ends up being a non-issue after player testing.
+
+Issue -- Non-mesh sphere/capsule colliders will roll forever due to spherical pseudo-terrain.
+-> Ignoring using several for now.
+
+
+Mesh collider for multiple chest types prevent hollowed area where collision should not exist.
+--> Multiple box colliders?
+---> Perfect(v.) colliders to prevent objects clipping outside of chest
+----> After going through hell and back everything seems to be dandy with multiple colliders.
+
+Objects inside chest sometimes fall through chest (^ collision detection?). 
+-> Fixed. They had high RB masses.
+
+Erratic behavior if key is inserted into a chest whose bottom is not on the ground. No immediate ideas short of requiring it be on the ground.
+-> Magically fixed itself.
+
+Key is too long and pierces chest.
+Key axes all change dramatically while rotating if one axis changes (adjust all axes continuously?).
+Key's notches come outside of chest when rotating.
+
+Cat walking animations do not loop perfectly (looks a bit weird) due to speed shifts between animation and animator. Limited User testing confirms.
+
+Create gameobjects all over the place whose positions randomize gradually. Set appropriate targets for each cat. This creates mostly randomized locations of walking. Should be doable.
+Cut walking animation when cats arrive at their point.
+{all cats having the same sequence of actions at equal intervals will seem more natural as they stop to start their {non-walk} sequence at different times}
+-> Done. Surprisingly few issues. Will tweak their Idle actions and how frequently they move later.
+
+Tighten ranges of cat patrolling.
+Sync up speeds for InvokeRepeating between (targetMove) and (cat move script).
+
+Cats are sometimes too synchronized, creating group thought if their targets happen to be randomly rolled to similar locations (two cats' targets both roll similar transforms). This causes them to behave in almost identical ways at almost the same time, which can appear odd. 
+No simple solutions immediately come to mind.
+-> Soft-fixed rather easily by adding a negative range on Targets' locations.
+
+Cat controller's animations for Itching and IdleSit do not line up. To compensate, I set itching as second in the sequence, making it trigger before Idle's animation ends. This way, their actions (lazing around in this case) are interrupted, which makes sense, as itching tends to make one suddenly stop what they're doing.
+
+Issue: Child objects within Chest mimic the Chest's transform. If the Chest gets turned upside down and dropped, and its contents hit the ground, they will keep moving (even when they shouldn't) until the Chest stops moving.
+-> Pseudo-fix: Making objects continuous dynamic should at least help prevent them from falling through the world.
+--> Somewhat of irrelevent if a player grabs object, as it gets automatically unparented.
+---> Can't believe I didn't figure out that it was just because they were children of Chest. Resolved.
+
+Restricting Movement: Simply adding a teleport area doesn't work. But setting the area to a copy of the 'floor' , with increased Y-scale to stretch it out, seems to work. Mimics the beach while removing the ability to enter the outer perimeter.
+
+Teleporting around makes objects on ground hop as if  they're being pushed, and then they fall back due to their gravity. Makes sense, but not sure how to fix yet. 
+-> Resolved: Changed y-pos and scale of teleport area.
+
+Player testing (no real gameplay mechanics yet) previously revealed things were too bright and I never got around to fixing it.
+-> Tested it myself, and I agree. Toned down brightness.
+
+Changed Little Kitten's speed to have a similar ratio to the ratio of its scale compared to normal Kittens' scale.
+
+Instead of patrolling, Little Kitten walks from the leaf it is using as shade to a {tree or rock, haven't decided} to be in the shade again.
+-> Decided with local rock. Only active tree would take it an eternity to walk to.
+
+Starfish get sad with only Discrete collision and sometimes fall through the world.
+If a Starfish is on certain parts of the island, it shakes due to collision with the island, regardless of Collision level. Working on it.
+
+Handling Little Kitten Leaf collision in the manner that it is handled, and not having its transform be searched for by other kittens, raises two innocuous runtime errors.
+
+Scale may be a bit too big. Too much open space on the forward part of the island. Or maybe there just aren't enough object on the island.
+
+
+Decided to opt out of Shovel and digging up the key. Particle effects surrounding sand movement seem tricky, and this should make gameplay feel a bit smoother.
+
+Gonna make sure player can yell at the sun. Because no one can stop me. Good opportunity to start working with voice commands. Hits achievement too.
+
+When falling, Chest sometimes magically stops mid-air for a moment before continuing to fall. No idea what's going on here yet. 
+-> Never did figure it out. It magically fixed itself. Alrighty then.
+
+Haven't figured out how to easily get Sun Unlocked icon to shake. I'll leave its animation as a simple rotation for now.
+-> Resolved and got it to shake with a rather ridiculous animation.
+
+Tiger alone, with animations, costs 8 FPS. Pursuring less expensive alternatives.
+
+Removed lots of mesh colliders in environment. Moved to primitives. Made many things static. Removed collision of environment with island. Gained at leats 5 FPS. Can barely hold 90 FPS now.
+
+Trunk of main tree does not seem like it cast shadows due to leaf shadows occupying the same space. It does, but the player may not be able to tell.
+
+Got FPS to usually stay at 90+ FPS (in-editor) even with the unbelievably expensive Tiger (and its wings) active.
+
+Changed sand material on island again. Looks presentable now, but hopefully I'll find something better later.
+
+Perfect(v) emission strength for sand material. 
+... Actually it seems best with no emission.
+
+Make achievements menu pause game.
+-> Difficult?
+--> Apparently it's the easiest thing ever. Set to App button.
+
+TIGER:
+particle effect			onAwake one shot - easy
+cry animation			onAwake - easy
+
+(some input to mount)		don't know how to do this yet but doable
+turn off aura			easy
+
+wait x seconds			easy
+begin Running animation (looped)	easy?
+find forward direction		easy? -> moved tiger to make its forward direction obvious (z axis)
+progressively move forward
+fly upwards {find direction?}
+'you win' screen			easy
+stop movement			no idea how? ->  apparently its easy using Time.timescale
+headbob?				way rougher to do than predicted. scrapped.
+
+Stupid coconuts were triggering their audio hundreds of times a second with TriggerEnter with beach, probably due their colliders being Mesh. Can't have colliders be round. Made them only make sound once unless grabbed/dropped. Only gave me an absurd 15-20 FPS. Game now runs at 90+ FPS at all times.
+-> Fixed up sound checks, fed things to Voice Manager script. Works perfectly and seems rather cleanly scripted.
+
+Added particle systems to hook and rod that glow after a certain time, acting as hints. Once they're attached, the ocean glows, until a fish is fished up. Hopefully this should make things clear enough.
+
+Froze fishing rope Z rotation to prevent its cylinder collider from causing it to roll away.
+-> Just gonna leave this be for now instead of trying to handle it another way.
+
+Getting the sun to sync with a person's voice proved to be soul-crushingly difficult. Scrapped it for now and just had it play for a certain amount of length regardless of how long the player screams.
+
+Unlocked golden fish sometimes doesn't animate. Cause unknown as of yet.
+-> After an hour of confusion it magically fixed itself. Isn't that dandy.
+
+Added a leave menu at end so that the player can confirm they're leaving. Might as well add voice recog here. Added button too so game completion doesn't require voice.
+
+Despite testers not really mentioning it at all (until I did), I really really *really* didn't want the ropes attached to the fishing pole to fall through the world, and instead collide with the ground without the ropes and pole affecting each others' transforms. That way if the pole is dropped and the ropes hit first, they act like ropes, and don't either (1) Fall through the world, or (2) Collide like they're super rigid and make the pole act weird.
+Gave up on this after a painfully long time of working on it. Hoepfully I can find a solution later.
+
+Need to make AchievementsMenu not fall through world if possible.

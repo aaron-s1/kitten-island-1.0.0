@@ -1,0 +1,82 @@
+Introduction
+As the final project for Udacity's VR Nanodegree class, this project is intended to culminate most [all] of the skills that are expected to have been learned over the class. The project is student choice, so long as most of many requirements are fulfilled.
+
+Outlook
+While there were a lot of possible routes to pursue, I decided I wanted a more open world type of game. Exploration is often a major part of VR, and I feel it is one of VR's most compelling and encapsulating aspects. I decided upon the theme of a kitten island, since it's simple, vibrant, and, well, kittens. The general premise is that the player explores the area, and figures out what to do to escape the island with limited (preferrably zero) indications of how to do so.
+
+Persona:
+John (33)
+Occupation: Retail Store Manager
+VR Experience: Beginner-Intermediate
+Description: John is a casual gamer that likes to explore. He prefers to examine situations around him, in an attempt to solve problems himself, rather than relying on instructnios from others. Due to this, you'll often find him playing single player games that are of an open world or puzzle-esque nature. He has played several Virtual Reality games, but nothing particularly intense.
+
+Original Design Sketch (Dev Process I)
+Cave inside middle of island. It has limited lighting, possibly with a torch. Corpses of dead people previously stranded on the island are inside, along with a hidden key that will unlocked a nearby chest.
+The treasure chest has all sorts of goodies; some good, some bad.
+Objects can be picked up, there's wind, and leaves float away.
+Cats should patrol randomly of their own accord, meow, idle, and just generally do cat things.
+Some (if not all) cats should be pettable, because you've just gotta be able to pet cats.
+
+<>
+
+Original Gameplay Sketch
+
+End Design Sketch
+<>
+
+End Gameplay Design (Dev Process II)
+- The structure of such a cave/path in the middle of an island didn't seem to make sense, so I scrapped it entirely and decided to place the key elsewhere. 
+- The key to a nearby chest became hidden underneath a mound of sand instead, which would be dug up using a shovel. Using the shovel with two hands makes it easier to dig with, like an actual shovel. The shifting of sand ended up being too difficult to implement, and I ended up simplifying the whole process by scrapping it, and placing the key in an easier location.
+- Ideally, visual indicators, as well as interest in exploring the area, should be sufficient to indicate to the player what they need to do, without any further explanations.
+
+
+Intended Gameplay Overview
+The player begins the game..
+They look around and should assess that their rescue boat crashed, and that they are on an island occupied by cats.
+They begin clicking buttons on their controller to find out how to interact with the environment.
+One button should allow them to teleport/move, and another should bring up an Achievements screen.
+After exploring a bit, that screen, as well as the environment, should signify they should look around.
+They move around trying to interact with the environment, and should be able to figure out that they can pick up objects.
+They learn to use grabbable objects to create game progress.
+Eventually they should learn how to combine grabbable objects to make a faux fishing rod.
+This is used to fish up, well, fish. If enough are fed to a cat, it 'evolves'.
+The evolved cat should be mountable when clicked, [have wings,] and should transport the player off the island, completing the game.
+None of the achievements are actually necessary to complete the game.
+
+
+User Testing
+Testing #1 (Person #1 - medium VR experience).
+Bare bones mechanics with basically just movement and kitten AI. For checking environment and scale. It was noted that "things seem too bright", but other than that there were limited problems. Things were way too small for the island, and there was not enough going on. Kittens seemed to have "weird" animations. Was also noted that sand looked odd.
+-> Vastly dropped scaling of island/beach. Toned down brightness of sun. Changed animation speed of kittens to be more in sync with their animations. Added some starfish, and more debris.
+Found a better sand material.
+
+Testing #2 (Person #1): 
+Most mechanics are in but the game can't be completed. No complaints other than 'he didn't know what to do', which, well, should not be clear yet. Noted that things looked good.
+-> No changes.
+
+Testing #3 (Person #2 - also medium VR experience):
+End result, with mostly completed game. Game is completeable.
+He couldn't figure out what needed to be done at first, but after exploring and fiddling with controls, he figured things out well (as intended). Completed the game normally, but noted that 'they [the kittens] don't act enough like kittens' and that they should be pettable or at least meow.
+-> Little Kitten is already pettable. Added meowing to Little Kitten. May add more to others later. No other changes.
+
+Testing #4 (Person #1):
+Same as before, no real issues. Completed game with little effort. Was noted that shadows don't really seem "real".
+-> Fixed up lighting and shadows a bit. Looks smoother now and still maintains 90+ FPS. No other changes.
+
+
+Next Steps
+There's a lot of things I'd like to go into next.  The most prominent things being improving the graphics of the sand, and improving FPS. Additional indication diagetics may also be a good idea.
+I've also considered adding a day/night system in the future. There would be a 'time to night' timer where cats turn evil at night, and attack you if you get near them, adding mini-horror elements.
+
+
+- Aaron S.
+
+
+
+
+
+
+
+
+
+
