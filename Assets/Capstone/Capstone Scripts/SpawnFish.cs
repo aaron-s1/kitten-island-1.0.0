@@ -21,8 +21,8 @@ public class SpawnFish : MonoBehaviour {
 	public GameObject achievementOverlay;
 
 	[Space(10)]
-	public Grab hapticLeft;
-	public Grab hapticRight;
+	// public Grab hapticLeft;
+	// public Grab hapticRight;
 
 
 	private int timeCount = 0;
@@ -47,16 +47,16 @@ public class SpawnFish : MonoBehaviour {
 
 					if (fishFished == 5) {			
 						Instantiate(goldenFish, hookEnd.transform).SetActive(true);
-						hapticLeft.TriggerHaptic();
-						hapticRight.TriggerHaptic();
+						// hapticLeft.TriggerHaptic();
+						// hapticRight.TriggerHaptic();
 						UnlockFish();
 
 					}
 
 					else {
 						Instantiate(fish, hookEnd.transform).SetActive(true);
-						hapticLeft.TriggerHaptic();
-						hapticRight.TriggerHaptic();
+						// hapticLeft.TriggerHaptic();
+						// hapticRight.TriggerHaptic();
 					}
 					
 					alreadyFished = true;	// prevents additional spawns until Hook leaves water
